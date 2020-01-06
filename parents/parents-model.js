@@ -6,7 +6,8 @@ module.exports = {
 	findBy,
 	findById,
 	update,
-	remove
+	remove,
+	findMyGigapet
 };
 
 function find() {
@@ -42,4 +43,18 @@ function remove(id) {
 	return db('parents')
 		.where({ id })
 		.del();
+}
+
+function findMyGigapet(parentId) {
+	return db('pets as gp')
+		.join('parents as p', 'gp.parent_id', 'p.id')
+		.select(
+			'gp.id',
+			'gp.pet_name',
+			'gp.pet_type',
+			'gp.image',
+			'p.id as parentId',
+			'p.username as parent'
+		)
+		.where({ parent_id: parentId });
 }
