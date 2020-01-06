@@ -2,28 +2,43 @@ const router = require('express').Router();
 
 const Parents = require('./parents-model');
 
+// PUT endpoint to enable updating parent account
 router.put('/:id', (req, res) => {
 	const { id } = req.params;
 	const changes = req.body;
 
-	db('parents')
-		.where({ id })
-		.update(changes)
-		.then(count => {
-			if (count) {
-				res.json({ update: count });
+	Parents.update(id, changes)
+		.then(parent => {
+			if (parent) {
+				res.status(200).json(parent);
 			} else {
-				res
-					.status(404)
-					.json({ message: 'Could not find account with given id.' });
+				res.status(404).json({ message: 'The account could not be found.' });
 			}
 		})
 		.catch(err => {
-      console.log('Failed to update account.', err)
-			res.status(500).json({ message: 'Failed to update account.' });
+			console.log('Error updating account.', err);
+			res.status(500).json({ error: 'Error updating the account.' });
 		});
 });
 
-router.delete('/api/parents/:id', (req, res) => {});
+// DELETE endpoint to remove parent account by specified ID
+router.delete('/:id', (req, res) => {
+	const { id } = req.params;
+
+	Parents.remove(id)
+		.then(count => {
+			if (count > 0) {
+				res
+					.status(200)
+					.json({ message: 'The account has been successfully deleted.' });
+			} else {
+				res.status(404).json({ message: 'The account could not be found.' });
+			}
+		})
+		.catch(err => {
+			console.log('Error deleting account.', err);
+			res.status(500).json({ error: 'Error deleting the account.' });
+		});
+});
 
 module.exports = router;
