@@ -8,15 +8,17 @@ Documentation for the endpoints can be accessed via:
 
 # Endpoints
 
-## Authentication For Parents
-
 | Method | Endpoint      | Description                                                                                                                                                                                                                                                            |
 | ------ | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | POST   | /api/auth/register | Creates a new `parent` account.  
 | POST   | /api/auth/login    | Logs parent into account. |
-| GET    | /api/gigapets    | If the user is logged in, will be able to access Gigapet information'. |
+| GET    | /api/gigapets    | Retrieves Gigapet(s). |
+| POST    | /api/gigapets    | Creates a new Gigapet. |
 
 * JSON Web Tokens used to verify parent accounts.
+* All gigapet endpoints can only be accessed when parent is logged in.
+
+## Authentication For Parents
 
 ### Register
 
