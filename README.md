@@ -58,4 +58,17 @@ Example:
  "image": "image url" - optional field \
 }
 
+- A `GET` request to the /api/parents/:id/pets endpoint will return an array of objects containing all Gigapets for the specified account.
 
+Example:
+
+[ \
+  { \
+    "id": 1, \
+    "pet_name": "fluffy", \
+    "pet_type": "dinosaur", \
+    "image": "https://www.netclipart.com/pp/m/221-2210689_dinosaur-png-animated-dino-from-dinosaur-train.png", \
+    "parentId": 3, \
+    "parent": "Kurt" \
+  } \
+] \
