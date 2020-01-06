@@ -70,6 +70,17 @@ router.post('/:id/pets', (req, res) => {
 });
 
 // GET endpoint to retrieve Gigapet for parent account
-router.get
+router.get('/:id/pets', (req, res) => {
+	Parents.findMyGigapet(req.params.id)
+		.then(pets => {
+			res.status(200).json(pets);
+		})
+		.catch(err => {
+			console.log('Error retrieving Gigapet for specified account.', err);
+			res
+				.status(500)
+				.json({ error: 'Error retrieving Gigpet for specified account.' });
+		});
+});
 
 module.exports = router;
