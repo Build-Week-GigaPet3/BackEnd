@@ -3,6 +3,8 @@
 ## Overview
 This API is used in conjunction with the web application GigaPet3 and allows for CRUD operations to be performed for Parents, Pets and Pet Food Log.
 
+Access to deployed Heroku API at https://gigapet3.herokuapp.com
+
 Documentation for the endpoints can be accessed via:
 
 
