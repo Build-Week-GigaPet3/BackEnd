@@ -2,6 +2,18 @@ const router = require('express').Router();
 
 const Parents = require('./parents-model');
 
+// GET endpoint to retrieve parent account
+router.get('/', (req, res) => {
+	Parents.find()
+		.then(parents => {
+			res.status(200).json(parents);
+		})
+		.catch(err => {
+			console.log('Error retrieving account.');
+			res.status(500).json({ error: 'Error retrieving the account.' });
+		});
+});
+
 // PUT endpoint to enable updating parent account
 router.put('/:id', (req, res) => {
 	const { id } = req.params;
