@@ -4,11 +4,10 @@ const Parents = require('./parents-model');
 
 // GET endpoint to retrieve parent account
 router.get('/', (req, res) => {
-	const message = process.env.MSG || 'Hello from the other side!';
-
+	
 	Parents.find()
 		.then(parents => {
-			res.status(200).json({ message: message, parents });
+			res.status(200).json(parents);
 		})
 		.catch(err => {
 			console.log('Error retrieving account.', err);
