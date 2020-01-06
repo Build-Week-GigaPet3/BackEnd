@@ -9,12 +9,6 @@ const parentsRouter = require('../parents/parents-router');
 
 const server = express();
 
-server.get('/', (req, res) => {
-	const message = process.env.MSG || 'Hello from the other side!';
-
-	res.send('<h2>And so it begins...<h2>', message);
-});
-
 server.use(helmet());
 server.use(cors());
 server.use(express.json());
