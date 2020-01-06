@@ -1,14 +1,13 @@
 const router = require('express').Router();
 
 const Parents = require('./parents-model');
+const Pets = require('../pets/pets-model');
 
 // GET endpoint to retrieve parent account
 router.get('/', (req, res) => {
-  const message = process.env.MSG || 'Hello from the other side!';
-  
 	Parents.find()
 		.then(parents => {
-			res.status(200).json({ message: message, parents});
+			res.status(200).json(parents);
 		})
 		.catch(err => {
 			console.log('Error retrieving account.', err);
@@ -52,6 +51,35 @@ router.delete('/:id', (req, res) => {
 		.catch(err => {
 			console.log('Error deleting account.', err);
 			res.status(500).json({ error: 'Error deleting the account.' });
+		});
+});
+
+// ******** SUB ROUTES *********
+// POST endpoint to add a new Gigapet to a parent account
+router.post('/:id/pets', (req, res) => {
+	const petInfo = { ...req.body, parent_id: req.params.id };
+
+	Pets.add(petInfo)
+		.then(pet => {
+			res.status(201).json(pet);
+		})
+		.catch(err => {
+			console.log('Error creating new Gigapet.', err);
+			res.status(500).json({ error: 'Error creating new Gigapet.' });
+		});
+});
+
+// GET endpoint to retrieve Gigapet for parent account
+router.get('/:id/pets', (req, res) => {
+	Parents.findMyGigapet(req.params.id)
+		.then(pets => {
+			res.status(200).json(pets);
+		})
+		.catch(err => {
+			console.log('Error retrieving Gigapet for specified account.', err);
+			res
+				.status(500)
+				.json({ error: 'Error retrieving Gigpet for specified account.' });
 		});
 });
 
