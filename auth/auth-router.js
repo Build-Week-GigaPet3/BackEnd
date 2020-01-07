@@ -35,6 +35,8 @@ router.post('/login', (req, res) => {
 				// send token
 				res.status(200).json({
 					token,
+					id: parent.id,
+					parent: parent.username,
 					message: `Welcome ${parent.username}!`
 				});
 			} else {
