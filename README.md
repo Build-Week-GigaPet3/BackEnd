@@ -17,6 +17,8 @@ Access to endpoints can be accessed via the deployed Heroku API at https://gigap
 | DELETE | /api/parents/:id      | `Deletes` account with specified ID.                    |
 | POST   | /api/parents/:id/pets | `Creates` a new gigapet for account with specified ID.  |
 | GET    | /api/parents/:id/pets | `Retrieves` all gigapets for account with specified ID. |
+| PUT    | /api/pets/:id         | `Updates` gigapet with specified ID.                    |
+| DELETE | /api/pets/:id         | `Deletes` gigapet with specified ID.                    |
 
 - JSON Web Tokens used to verify parent accounts.
 - All gigapet endpoints can only be accessed when parent is logged in.
@@ -63,12 +65,12 @@ Example:
 Example:
 
 [ \
-  { \
-    "id": 1, \
-    "pet_name": "fluffy", \
-    "pet_type": "dinosaur", \
-    "image": "https://www.netclipart.com/pp/m/221-2210689_dinosaur-png-animated-dino-from-dinosaur-train.png", \
-    "parentId": 3, \
-    "parent": "Kurt" \
-  } \
+ { \
+ "id": 1, \
+ "pet_name": "fluffy", \
+ "pet_type": "dinosaur", \
+ "image": "https://www.netclipart.com/pp/m/221-2210689_dinosaur-png-animated-dino-from-dinosaur-train.png", \
+ "parentId": 3, \
+ "parent": "Kurt" \
+ } \
 ] \
