@@ -19,4 +19,9 @@ server.use('/api/auth', authRouter);
 server.use('/api/parents', authenticate, parentsRouter);
 server.use('/api/pets', authenticate, petsRouter);
 
+server.get('/', (req, res) => {
+	const message = process.env.MSG || 'Hello from the other side!';
+	res.send(message);
+});
+
 module.exports = server;
