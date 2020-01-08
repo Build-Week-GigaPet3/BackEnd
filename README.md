@@ -8,17 +8,13 @@ Access to endpoints can be accessed via the deployed Heroku API at https://gigap
 
 # Endpoints
 
-| Method | Endpoint              | Description                                             |
-| ------ | --------------------- | ------------------------------------------------------- |
-| POST   | /api/auth/register    | `Registers` a new parent account.                       |
-| POST   | /api/auth/login       | `Logs` parent into account.                             |
-| GET    | /api/parents          | `Retrieves` all parent accounts.                        |
-| PUT    | /api/parents/:id      | `Updates` account with specified ID.                    |
-| DELETE | /api/parents/:id      | `Deletes` account with specified ID.                    |
-| POST   | /api/parents/:id/pets | `Creates` a new gigapet for account with specified ID.  |
-| GET    | /api/parents/:id/pets | `Retrieves` all gigapets for account with specified ID. |
-| PUT    | /api/pets/:id         | `Updates` gigapet with specified ID.                    |
-| DELETE | /api/pets/:id         | `Deletes` gigapet with specified ID.                    |
+| Method | Endpoint           | Description                          |
+| ------ | ------------------ | ------------------------------------ |
+| POST   | /api/auth/register | `Registers` a new parent account.    |
+| POST   | /api/auth/login    | `Logs` parent into account.          |
+| GET    | /api/parents       | `Retrieves` all parent accounts.     |
+| PUT    | /api/parents/:id   | `Updates` account with specified ID. |
+| DELETE | /api/parents/:id   | `Deletes` account with specified ID. |
 
 - JSON Web Tokens used to verify parent accounts.
 - All gigapet endpoints can only be accessed when parent is logged in.
@@ -47,7 +43,14 @@ Example:
  "password": "chickenpotpie" \
 }
 
-### GigaPet
+## GigaPet
+
+| Method | Endpoint              | Description                                             |
+| ------ | --------------------- | ------------------------------------------------------- |
+| POST   | /api/parents/:id/pets | `Creates` a new gigapet for account with specified ID.  |
+| GET    | /api/parents/:id/pets | `Retrieves` all gigapets for account with specified ID. |
+| PUT    | /api/pets/:id         | `Updates` gigapet with specified ID.                    |
+| DELETE | /api/pets/:id         | `Deletes` gigapet with specified ID.                    |
 
 - A `POST` request to the /api/parents/:id/pets endpoint expects to receive an object, see example below. Pet_name, pet_type and parent_id are required. Adding an image is optional.
 
@@ -74,3 +77,13 @@ Example:
  "parent": "Kurt" \
  } \
 ] \
+
+## Food (category, entry)
+
+| Method | Endpoint                   | Description                                        |
+| ------ | -------------------------- | -------------------------------------------------- |
+| GET    | /api/food                  | `Retrieves` a list of food categories.             |
+| GET    | /api/pets/:id/food/log     | `Retrieves` a list of food logs for specified pet. |
+| POST   | /api/pets/:id/food/log     | `Creates` a food log for specified pet.            |
+| PUT    | /api/pets/:id/food/log/:id | `Updates` a food log by specified ID.              |
+| DELETE | /api/pets/:id/food/log/:id | `Deletes` a food log by specified ID.              |
