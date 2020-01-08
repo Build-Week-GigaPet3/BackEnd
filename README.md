@@ -78,12 +78,12 @@ Example:
  } \
 ] \
 
-## Food (category, entry)
+## Food (category, log)
 
 | Method | Endpoint                   | Description                                        |
 | ------ | -------------------------- | -------------------------------------------------- |
 | GET    | /api/food                  | `Retrieves` a list of food categories.             |
-| GET    | /api/pets/:id/food/log     | `Retrieves` a list of food logs for specified pet. |
-| POST   | /api/pets/:id/food/log     | `Creates` a food log for specified pet.            |
-| PUT    | /api/pets/:id/food/log/:id | `Updates` a food log by specified ID.              |
-| DELETE | /api/pets/:id/food/log/:id | `Deletes` a food log by specified ID.              |
+| GET    | /api/parents/:id/food/log     | `Retrieves` a list of food logs for specified pet. |
+| POST   | /api/parents/:id/food/log     | `Creates` a food log for specified pet.            |
+| PUT    | /api/parents/:id/food/log/:id | `Updates` a food log by specified ID.              |
+| DELETE | /api/parents/:id/food/log/:id | `Deletes` a food log by specified ID.              |
