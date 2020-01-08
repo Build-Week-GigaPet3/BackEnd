@@ -36,4 +36,21 @@ router.put('/logs/:id', (req, res) => {
 		});
 });
 
+router.delete('/logs/:id', (req, res) => {
+	const { id } = req.params;
+
+	FoodLog.remove(id)
+		.then(count => {
+			if (count > 0) {
+				res
+					.status(200)
+					.json({ message: 'The food log was deleted successfully!' });
+			}
+		})
+		.catch(err => {
+			console.log('Error deleting food log.', err);
+			res.status(500).json({ error: 'Error deleting food log.' });
+		});
+});
+
 module.exports = router;
