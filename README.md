@@ -83,10 +83,10 @@ Example:
 | Method | Endpoint                      | Description                                           |
 | ------ | ----------------------------- | ----------------------------------------------------- |
 | GET    | /api/food                     | `Retrieves` a list of food categories.                |
-| GET    | /api/parents/:id/food/logs     | `Retrieves` a list of food logs for specified parent.|
-| POST   | /api/parents/:id/food/logs     | `Creates` a food log for specified parent.           |
-| PUT    | /api/parents/:id/food/logs/:id | `Updates` a food log by specified ID.                |
-| DELETE | /api/parents/:id/food/logs/:id | `Deletes` a food log by specified ID.                |
+| GET    | /api/parents/:id/food/logs    | `Retrieves` a list of food logs for specified parent. |
+| POST   | /api/parents/:id/food/logs    | `Creates` a food log for specified parent.            |
+| PUT    | /api/parents/:id/food/logs/:id| `Updates` a food log by specified ID.                 |
+| DELETE | /api/parents/:id/food/logs/:id| `Deletes` a food log by specified ID.                 |
 
 - A `GET` request to the /api/food endpoint will retrieve a list of food categories. The database contains seeded data of categories to choose from.
 
@@ -121,4 +121,27 @@ Example:
  "id": 7, \
  "category_name": "Treat" \
  } \
+] \
+
+- A `POST` request to the /api/parents/:id/food/logs endpoint will create a new food log entry for specified parent account.
+
+The API expects to receive information as in the following example:
+
+{ \
+	"food_item": "apple", \
+	"food_category_id": "1", \
+	"parent_id": 1 \
+} \
+
+- A `GET` request to the /api/parents/:id/food/logs endpoint `Retrieves` a list of food logs for specified parent.
+
+It will return information as shown below.
+
+Example: 
+
+[ \
+  {
+    "food_item": "apple", \
+    "category_name": "Fruit" \
+  } \
 ] \
