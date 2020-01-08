@@ -80,10 +80,45 @@ Example:
 
 ## Food (category, log)
 
-| Method | Endpoint                   | Description                                        |
-| ------ | -------------------------- | -------------------------------------------------- |
-| GET    | /api/food                  | `Retrieves` a list of food categories.             |
+| Method | Endpoint                      | Description                                        |
+| ------ | ----------------------------- | -------------------------------------------------- |
+| GET    | /api/food                     | `Retrieves` a list of food categories.             |
 | GET    | /api/parents/:id/food/log     | `Retrieves` a list of food logs for specified pet. |
 | POST   | /api/parents/:id/food/log     | `Creates` a food log for specified pet.            |
 | PUT    | /api/parents/:id/food/log/:id | `Updates` a food log by specified ID.              |
 | DELETE | /api/parents/:id/food/log/:id | `Deletes` a food log by specified ID.              |
+
+- A `GET` request to the /api/food endpoint will retrieve a list of food categories. The database contains seeded data of categories to choose from.
+
+Example:
+
+[ \
+ { \
+ "id": 1, \
+ "category_name": "Fruit" \
+ }, \
+ { \
+ "id": 2, \
+ "category_name": "Vegetable" \
+ }, \
+ { \
+ "id": 3, \
+ "category_name": "Grain" \
+ }, \
+ { \
+ "id": 4, \
+ "category_name": "Meat" \
+ }, \
+ { \
+ "id": 5, \
+ "category_name": "Dairy" \
+ }, \
+ { \
+ "id": 6, \
+ "category_name": "Fat" \
+ }, \
+ { \
+ "id": 7, \
+ "category_name": "Treat" \
+ } \
+] \
