@@ -83,10 +83,10 @@ Example:
 | Method | Endpoint                      | Description                                           |
 | ------ | ----------------------------- | ----------------------------------------------------- |
 | GET    | /api/food                     | `Retrieves` a list of food categories.                |
-| GET    | /api/parents/:id/food/log     | `Retrieves` a list of food logs for specified parent. |
-| POST   | /api/parents/:id/food/log     | `Creates` a food log for specified parent.            |
-| PUT    | /api/parents/:id/food/log/:id | `Updates` a food log by specified ID.                 |
-| DELETE | /api/parents/:id/food/log/:id | `Deletes` a food log by specified ID.                 |
+| GET    | /api/parents/:id/food/logs     | `Retrieves` a list of food logs for specified parent.|
+| POST   | /api/parents/:id/food/logs     | `Creates` a food log for specified parent.           |
+| PUT    | /api/parents/:id/food/logs/:id | `Updates` a food log by specified ID.                |
+| DELETE | /api/parents/:id/food/logs/:id | `Deletes` a food log by specified ID.                |
 
 - A `GET` request to the /api/food endpoint will retrieve a list of food categories. The database contains seeded data of categories to choose from.
 

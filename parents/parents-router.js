@@ -84,8 +84,22 @@ router.get('/:id/pets', (req, res) => {
 		});
 });
 
+// POST endpoint to add a new food log for parent account
+router.post('/:id/food/logs', (req, res) => {
+	const logInfo = { ...req.body, parent_id: req.params.id };
+
+	FoodLog.add(logInfo)
+		.then(log => {
+			res.status(201).json(log);
+		})
+		.catch(err => {
+			console.log('Error creating new food log.', err);
+			res.status(500).json({ error: 'Error creating new food log.' });
+		});
+});
+
 // GET endpoint to retrieve food logs for parent account
-router.get('/:id/food/log', (req, res) => {
+router.get('/:id/food/logs', (req, res) => {
 	Parents.findFoodLogs(req.params.id)
 		.then(logs => {
 			res.status(200).json(logs);
@@ -95,7 +109,5 @@ router.get('/:id/food/log', (req, res) => {
 			res.status(500).json({ error: 'Error retrieving food logs.' });
 		});
 });
-
-
 
 module.exports = router;
