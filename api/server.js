@@ -7,7 +7,7 @@ const authenticate = require('../middleware/authenticate-middleware');
 const authRouter = require('../auth/auth-router');
 const parentsRouter = require('../parents/parents-router');
 const petsRouter = require('../pets/pets-router');
-const foodRouter = require('../food/category-router');
+const foodRouter = require('../food/food-router');
 
 const server = express();
 
