@@ -38,3 +38,4 @@ function update(id, changes) {
 		.where({ id })
 		.update(changes, 'id');
 }
+
