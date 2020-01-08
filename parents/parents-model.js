@@ -7,7 +7,8 @@ module.exports = {
 	findById,
 	update,
 	remove,
-	findMyGigapet
+	findMyGigapet,
+	findFoodLogs
 };
 
 function find() {
@@ -56,5 +57,13 @@ function findMyGigapet(parentId) {
 			'p.id as parentId',
 			'p.username as parent'
 		)
+		.where({ parent_id: parentId });
+}
+
+function findFoodLogs(parentId) {
+	return db('food_log as fl')
+		.join('parents as p', 'fl.parent_id', 'p.id')
+		.join('food_category as fc', 'fl.food_category_id', 'fc.id')
+		.select('fl.food_item', 'fc.category_name')
 		.where({ parent_id: parentId });
 }

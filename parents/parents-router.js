@@ -2,6 +2,7 @@ const router = require('express').Router();
 
 const Parents = require('./parents-model');
 const Pets = require('../pets/pets-model');
+const FoodLog = require('../food/log-model');
 
 // GET endpoint to retrieve parent account
 router.get('/', (req, res) => {
@@ -80,6 +81,32 @@ router.get('/:id/pets', (req, res) => {
 			res
 				.status(500)
 				.json({ error: 'Error retrieving Gigpet for specified account.' });
+		});
+});
+
+// POST endpoint to add a new food log for parent account
+router.post('/:id/food/logs', (req, res) => {
+	const logInfo = { ...req.body, parent_id: req.params.id };
+
+	FoodLog.add(logInfo)
+		.then(log => {
+			res.status(201).json(log);
+		})
+		.catch(err => {
+			console.log('Error creating new food log.', err);
+			res.status(500).json({ error: 'Error creating new food log.' });
+		});
+});
+
+// GET endpoint to retrieve food logs for parent account
+router.get('/:id/food/logs', (req, res) => {
+	Parents.findFoodLogs(req.params.id)
+		.then(logs => {
+			res.status(200).json(logs);
+		})
+		.catch(err => {
+			console.log('Error retrieving food logs.', err);
+			res.status(500).json({ error: 'Error retrieving food logs.' });
 		});
 });
 
