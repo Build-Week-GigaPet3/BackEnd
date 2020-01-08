@@ -62,7 +62,8 @@ function findMyGigapet(parentId) {
 
 function findFoodLogs(parentId) {
 	return db('food_log as fl')
-		.join('parents as p', 'fl.parent_id', 'p.id')
+    .join('parents as p', 'fl.parent_id', 'p.id')
+    .join('food_category as fc', 'fl.food_category_id', 'fc.id')
 		.select('*')
 		.where({ parent_id: parentId });
 }
