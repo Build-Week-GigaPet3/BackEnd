@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 
+const { validateParent } = require('../middleware/validators/parentsValidator');
+
 const Parents = require('../parents/parents-model');
 const signToken = require('../middleware/signToken');
 
@@ -8,17 +10,25 @@ const signToken = require('../middleware/signToken');
 router.post('/register', (req, res) => {
 	// implement registration
 	let parent = req.body;
+
+  // validates required info is provided to create an account
+	const validation = validateParent(parent);
+
 	const hash = bcrypt.hashSync(parent.password, 10);
 	parent.password = hash;
 
-	Parents.add(parent)
-		.then(saved => {
-			res.status(201).json(saved);
-		})
-		.catch(err => {
-			console.log('Error registering new parent.', err);
-			res.status(500).json({ error: 'Error registering new parent.' });
-		});
+	if (validation.success) {
+		Parents.add(parent)
+			.then(saved => {
+				res.status(201).json(saved);
+			})
+			.catch(err => {
+				console.log('Error registering new parent.', err);
+				res.status(500).json({ error: 'Error registering new parent.' });
+			});
+	} else {
+		res.status(400).json(validation);
+	}
 });
 
 // POST endpoint to log parent in
