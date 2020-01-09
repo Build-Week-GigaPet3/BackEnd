@@ -23,7 +23,7 @@ Access to endpoints can be accessed via the deployed Heroku API at https://gigap
 
 ### Register
 
-- A `POST` request to the /api/auth/register endpoint expects to receive an object. A `username` and `password` are required.
+- A `POST` request to the /api/auth/register endpoint expects to receive an object. A `username` and `password` are required otherwise the request will fail with a 400 error.
 
 Example:
 
@@ -52,7 +52,7 @@ Example:
 | PUT    | /api/pets/:id         | `Updates` gigapet with specified ID.                    |
 | DELETE | /api/pets/:id         | `Deletes` gigapet with specified ID.                    |
 
-- A `POST` request to the /api/parents/:id/pets endpoint expects to receive an object, see example below. Pet_name, pet_type and parent_id are required. Adding an image is optional.
+- A `POST` request to the /api/parents/:id/pets endpoint expects to receive an object, see example below. Pet_name, pet_type and parent_id are required otherwise the request will fail with a 400 error. Adding an image is optional.
 
 Example:
 
@@ -125,7 +125,7 @@ Example:
 
 - A `POST` request to the /api/parents/:id/food/logs endpoint will `create` a new food log entry for specified parent account.
 
-The API expects to receive information as in the following example:
+The API expects to receive information as in the following example otherwise will fail with a 400 error:
 
 { \
  "food_item": "apple", \
