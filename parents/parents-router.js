@@ -1,5 +1,10 @@
 const router = require('express').Router();
 
+const { validatePet } = require('../middleware/validators/petsValidator');
+const {
+	validateFoodLog
+} = require('../middleware/validators/foodLogValidator');
+
 const Parents = require('./parents-model');
 const Pets = require('../pets/pets-model');
 const FoodLog = require('../food/log-model');
@@ -60,14 +65,21 @@ router.delete('/:id', (req, res) => {
 router.post('/:id/pets', (req, res) => {
 	const petInfo = { ...req.body, parent_id: req.params.id };
 
-	Pets.add(petInfo)
-		.then(pet => {
-			res.status(201).json(pet);
-		})
-		.catch(err => {
-			console.log('Error creating new Gigapet.', err);
-			res.status(500).json({ error: 'Error creating new Gigapet.' });
-		});
+	// validates required info is provided to create a new pet
+	const validation = validatePet(petInfo);
+
+	if (validation.success) {
+		Pets.add(petInfo)
+			.then(pet => {
+				res.status(201).json(pet);
+			})
+			.catch(err => {
+				console.log('Error creating new Gigapet.', err);
+				res.status(500).json({ error: 'Error creating new Gigapet.' });
+			});
+	} else {
+		res.status(400).json(validation);
+	}
 });
 
 // GET endpoint to retrieve Gigapet for parent account
@@ -88,14 +100,21 @@ router.get('/:id/pets', (req, res) => {
 router.post('/:id/food/logs', (req, res) => {
 	const logInfo = { ...req.body, parent_id: req.params.id };
 
-	FoodLog.add(logInfo)
-		.then(log => {
-			res.status(201).json(log);
-		})
-		.catch(err => {
-			console.log('Error creating new food log.', err);
-			res.status(500).json({ error: 'Error creating new food log.' });
-		});
+	// validates required info is provided to create a new food log
+	const validation = validateFoodLog(logInfo);
+
+	if (validation.success) {
+		FoodLog.add(logInfo)
+			.then(log => {
+				res.status(201).json(log);
+			})
+			.catch(err => {
+				console.log('Error creating new food log.', err);
+				res.status(500).json({ error: 'Error creating new food log.' });
+			});
+	} else {
+		res.status(400).json(validation);
+	}
 });
 
 // GET endpoint to retrieve food logs for parent account
