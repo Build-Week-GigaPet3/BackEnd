@@ -16,12 +16,19 @@ describe('tests auth-router.js', function() {
 				.then(res => {
 					expect(res.status).toBe(201);
 				});
-    });
-    
-    it('should return a 400 error if required information is missing.', function() {
-      return request(server)
-        .post('/api/auth/register')
-        .send("  ")
-    })
+		});
+
+		it('should return an error message with what is missing, if required info is not provided.', function() {
+			return request(server)
+				.post('/api/auth/register')
+				.send({ password: 'babygirl' })
+				.then(res => {
+					expect(res.body).toEqual({
+						success: false,
+						errorMessage: 'The info is not valid, see errors for details.',
+						errors: ['Please provide a username for the parent account.']
+					});
+				});
+		});
 	});
 });
