@@ -5,7 +5,8 @@ const server = require('../api/server');
 
 describe('Food Router functionality', () => {
 	beforeEach(async () => {
-		await db('parents').truncate();
+    await db('parents').truncate();
+    await db('food_log').truncate()
 	});
 
 	it('GET request should return data in JSON format', async () => {
@@ -71,34 +72,80 @@ describe('Food Router functionality', () => {
 							});
 					});
 			});
+	});
+
+	it('PUT request should return JSON object upon successful update', () => {
+		const parent3 = { username: 'Rosco', password: 'peekotrain' };
+
+		return request(server)
+			.post('/api/auth/register')
+			.send(parent3)
+			.then(() => {
+				return request(server)
+					.post('/api/auth/login')
+					.send(parent3)
+					.then(res => {
+						const token = res.body.token;
+
+						return request(server)
+							.post('/api/parents/1/food/logs')
+							.set('authorization', token)
+							.send({
+								food_item: 'cupcake',
+								food_category_id: '7',
+								parent_id: 1
+							})
+							.expect(201)
+							.then(() => {
+								return request(server)
+									.put('/api/food/logs/1')
+									.set('authorization', token)
+									.send({ food_item: 'Twix' })
+									.expect({
+										message: 'Food log update was successful.',
+										log: 1
+									});
+							});
+					});
+			});
   });
   
-  
+  it('DELETE request should return error ', () => {
+    const parent4 = { username: 'Emily', password: 'mamabearroar' };
+
+    return request(server)
+      .post('/api/auth/register')
+      .send(parent4)
+      .then(() => {
+        return request(server)
+          .post('/api/auth/login')
+          .send(parent4)
+          .then(res => {
+            const token = res.body.token;
+
+            return request(server)
+            .post('/api/parents/1/food/logs')
+            .set('authorization', token)
+            .send({
+              food_item: 'cereal',
+              food_category_id: '3',
+              parent_id: 1
+            })
+            .expect(201)
+            .then(() => {
+              return request(server)
+									.delete('/api/food/logs/1')
+                  .set('authorization', token)
+                  .expect(200)
+									.expect({
+										message: 'The food log was deleted successfully!' 
+									});
+            })
+          })
+      })
+  })
+
 });
 
 
-// const logId = 1;
 
-// it('PUT request should return JSON object upon successful update', function() {
-// 	return request(server)
-// 		.put(`/api/food/logs/${logId}`)
-// 		.send({ food_item: 'banana' })
-// 		.then(res => {
-// 			expect(res.type).toMatch(/json/i);
-// 			expect(res.body).toEqual({
-// 				message: 'Food log update was successful.',
-// 				log: 1
-// 			});
-// 		});
-// });
-
-// it('DELETE request should return success message upon deletion', function() {
-// 	return request(server)
-// 		.delete(`/api/food/logs/${logId}`)
-// 		.then(res => {
-// 			expect(res.body).toEqual({
-// 				message: 'The food log was deleted successfully!'
-// 			});
-// 		});
-// });
-// });
