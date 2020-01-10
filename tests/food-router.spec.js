@@ -5,8 +5,8 @@ const server = require('../api/server');
 
 describe('Food Router functionality', () => {
 	beforeEach(async () => {
-    await db('parents').truncate();
-    await db('food_log').truncate()
+		await db('parents').truncate();
+		await db('food_log').truncate();
 	});
 
 	it('GET request should return data in JSON format', async () => {
@@ -108,44 +108,40 @@ describe('Food Router functionality', () => {
 							});
 					});
 			});
-  });
-  
-  it('DELETE request should return error ', () => {
-    const parent4 = { username: 'Emily', password: 'mamabearroar' };
+	});
 
-    return request(server)
-      .post('/api/auth/register')
-      .send(parent4)
-      .then(() => {
-        return request(server)
-          .post('/api/auth/login')
-          .send(parent4)
-          .then(res => {
-            const token = res.body.token;
+	it('DELETE request should return error ', () => {
+		const parent4 = { username: 'Emily', password: 'mamabearroar' };
 
-            return request(server)
-            .post('/api/parents/1/food/logs')
-            .set('authorization', token)
-            .send({
-              food_item: 'cereal',
-              food_category_id: '3',
-              parent_id: 1
-            })
-            .expect(201)
-            .then(() => {
-              return request(server)
+		return request(server)
+			.post('/api/auth/register')
+			.send(parent4)
+			.then(() => {
+				return request(server)
+					.post('/api/auth/login')
+					.send(parent4)
+					.then(res => {
+						const token = res.body.token;
+
+						return request(server)
+							.post('/api/parents/1/food/logs')
+							.set('authorization', token)
+							.send({
+								food_item: 'cereal',
+								food_category_id: '3',
+								parent_id: 1
+							})
+							.expect(201)
+							.then(() => {
+								return request(server)
 									.delete('/api/food/logs/1')
-                  .set('authorization', token)
-                  .expect(200)
+									.set('authorization', token)
+									.expect(200)
 									.expect({
-										message: 'The food log was deleted successfully!' 
+										message: 'The food log was deleted successfully!'
 									});
-            })
-          })
-      })
-  })
-
+							});
+					});
+			});
+	});
 });
-
-
-
