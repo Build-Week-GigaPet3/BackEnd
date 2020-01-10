@@ -16,6 +16,12 @@ describe('tests auth-router.js', function() {
 				.then(res => {
 					expect(res.status).toBe(201);
 				});
-		});
+    });
+    
+    it('should return a 400 error if required information is missing.', function() {
+      return request(server)
+        .post('/api/auth/register')
+        .send("  ")
+    })
 	});
 });
