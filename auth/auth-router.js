@@ -8,16 +8,16 @@ const signToken = require('../middleware/signToken');
 
 // POST endpoint to register new parent
 router.post('/register', (req, res) => {
-	// implement registration
 	let parent = req.body;
 
-	// validates required info is provided to create an account
+	// validates required info is provided to create a new account
 	const validation = validateParent(parent);
 
-	const hash = bcrypt.hashSync(parent.password, 10);
-	parent.password = hash;
-
 	if (validation.success) {
+		// uses bcrypt to hash user password for a total of 10 hashes for added security
+		const hash = bcrypt.hashSync(parent.password, 10);
+		parent.password = hash;
+
 		Parents.add(parent)
 			.then(saved => {
 				res.status(201).json(saved);
