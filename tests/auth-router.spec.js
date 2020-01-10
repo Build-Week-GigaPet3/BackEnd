@@ -3,15 +3,12 @@ const db = require('../database/dbConfig');
 
 const server = require('../api/server');
 
-const signToken = require('../middleware/signToken');
-
-describe('tests auth-router.js', function() {
+describe('Register functionality', function() {
 	beforeEach(async () => {
-		await db('parents');
+		await db('parents').truncate();
 	});
 
-	const parent = { id: 1, username: 'MilaniJo', password: 'babygirl' };
-	const token = signToken(parent);
+	const parent = { username: 'MilaniJo', password: 'babygirl' };
 
 	describe('POST /register', function() {
 		it('should register a new user and return 201 OK', function() {
@@ -36,24 +33,22 @@ describe('tests auth-router.js', function() {
 				});
 		});
 
-		it('successful login should return status 200 and token and user info.', function() {
-			return (
-				request(server)
-					.post('/api/auth/login')
-					.send(parent)
-					// .then(res => {
-					// 	expect(res.status).toBe(200);
-					// });
+		const parent2 = { username: 'Des', password: 'navysailor' };
+
+		describe('Login functionality', () => {
+			it('Should log user in and return status code 200 upon success', () => {
+				return request(server)
+					.post('/api/auth/register')
+					.send(parent2)
 					.then(res => {
-						expect(res.status).toBe(200);
-						expect(res.body).toEqual({
-							token,
-							id: parent.id,
-							username: parent.username,
-							message: `Welcome ${parent.username}!`
-						});
+						return request(server)
+							.post('/api/auth/login')
+							.send(parent2);
 					})
-			);
+					.then(res => {
+						expect(res.body.message).toBe('Welcome Des!');
+					});
+			});
 		});
 	});
 });
