@@ -11,7 +11,7 @@ router.post('/register', (req, res) => {
 	// implement registration
 	let parent = req.body;
 
-  // validates required info is provided to create an account
+	// validates required info is provided to create an account
 	const validation = validateParent(parent);
 
 	const hash = bcrypt.hashSync(parent.password, 10);

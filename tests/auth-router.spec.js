@@ -3,22 +3,27 @@ const db = require('../database/dbConfig');
 
 const server = require('../api/server');
 
+const signToken = require('../middleware/signToken');
+
 describe('tests auth-router.js', function() {
 	beforeEach(async () => {
-		await db('parents').truncate();
+		await db('parents');
 	});
+
+	const parent = { id: 1, username: 'MilaniJo', password: 'babygirl' };
+	const token = signToken(parent);
 
 	describe('POST /register', function() {
 		it('should register a new user and return 201 OK', function() {
 			return request(server)
 				.post('/api/auth/register')
-				.send({ username: 'MilaniJo', password: 'middlechild' })
+				.send(parent)
 				.then(res => {
 					expect(res.status).toBe(201);
 				});
 		});
 
-		it('should return an error message with what is missing, if required info is not provided.', function() {
+		it('should return an object with error info, if required info is not provided.', function() {
 			return request(server)
 				.post('/api/auth/register')
 				.send({ password: 'babygirl' })
@@ -29,6 +34,26 @@ describe('tests auth-router.js', function() {
 						errors: ['Please provide a username for the parent account.']
 					});
 				});
+		});
+
+		it('successful login should return status 200 and token and user info.', function() {
+			return (
+				request(server)
+					.post('/api/auth/login')
+					.send(parent)
+					// .then(res => {
+					// 	expect(res.status).toBe(200);
+					// });
+					.then(res => {
+						expect(res.status).toBe(200);
+						expect(res.body).toEqual({
+							token,
+							id: parent.id,
+							username: parent.username,
+							message: `Welcome ${parent.username}!`
+						});
+					})
+			);
 		});
 	});
 });
