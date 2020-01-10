@@ -8,11 +8,11 @@ function validateParent(parent) {
 	let errors = [];
 
 	if (!username) {
-		errors.push('Please provide a username for the parent account.');
+		errors.push('A username is required to create new parent account.');
 	}
 
 	if (!password) {
-		errors.push('Please provide a password for the parent account.');
+		errors.push('A password is required to create new parent account.');
 	}
 
 	let success = errors.length === 0;
