@@ -2,6 +2,7 @@ const request = require('supertest');
 const db = require('../database/dbConfig');
 
 const server = require('../api/server');
+const signToken = require('../middleware/signToken');
 
 describe('Register functionality', function() {
 	beforeEach(async () => {
@@ -33,7 +34,8 @@ describe('Register functionality', function() {
 				});
 		});
 
-		const parent2 = { username: 'Des', password: 'navysailor' };
+		const parent2 = { username: 'Daddeo', password: 'goldenchild' };
+		const token = signToken(parent2);
 
 		describe('Login functionality', () => {
 			it('Should log user in and return status code 200 upon success', () => {
@@ -46,7 +48,8 @@ describe('Register functionality', function() {
 							.send(parent2);
 					})
 					.then(res => {
-						expect(res.body.message).toBe('Welcome Des!');
+						expect(res.body.message).toBe('Welcome Daddeo!');
+						expect(res.body.token).toBe(token);
 					});
 			});
 		});
