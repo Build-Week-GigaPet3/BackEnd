@@ -27,10 +27,10 @@ Access to endpoints can be accessed via the deployed Heroku API at https://gigap
 
 Example:
 
-{ \
+```{ \
  "username": "Maddy", \
  "password": "chickenpotpie" \
-}
+}```
 
 ### Login
 
