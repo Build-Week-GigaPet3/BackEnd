@@ -40,10 +40,12 @@ Example:
 
 Example:
 
-{ \
- "username": "Maddy", \
- "password": "chickenpotpie" \
+```
+{ 
+ "username": "Maddy", 
+ "password": "chickenpotpie" 
 }
+```
 
 ## GigaPet
 
@@ -58,27 +60,30 @@ Example:
 
 Example:
 
-{ \
- "pet_name": "Fluffy", \
- "pet_type": "cat", \
- "parent_id": 1, \
- "image": "image url" - optional field \
+```
+{ 
+ "pet_name": "Fluffy", 
+ "pet_type": "cat", 
+ "parent_id": 1, 
+ "image": "image url" - optional field 
 }
-
+```
 - A `GET` request to the /api/parents/:id/pets endpoint will return an array of objects containing all Gigapets for the specified account.
 
 Example:
 
-[ \
- { \
- "id": 1, \
- "pet_name": "fluffy", \
- "pet_type": "dinosaur", \
- "image": "https://www.netclipart.com/pp/m/221-2210689_dinosaur-png-animated-dino-from-dinosaur-train.png", \
- "parentId": 3, \
- "parent": "Kurt" \
- } \
-] \
+```
+[ 
+ { 
+ "id": 1, 
+ "pet_name": "fluffy", 
+ "pet_type": "dinosaur", 
+ "image": "https://www.netclipart.com/pp/m/221-2210689_dinosaur-png-animated-dino-from-dinosaur-train.png", 
+ "parentId": 3, 
+ "parent": "Kurt" 
+ } 
+] 
+```
 
 ## Food (category, log)
 
@@ -94,59 +99,63 @@ Example:
 
 Example:
 
-[ \
- { \
- "id": 1, \
- "category_name": "Fruit" \
- }, \
- { \
- "id": 2, \
- "category_name": "Vegetable" \
- }, \
- { \
- "id": 3, \
- "category_name": "Grain" \
- }, \
- { \
- "id": 4, \
- "category_name": "Meat" \
- }, \
- { \
- "id": 5, \
- "category_name": "Dairy" \
- }, \
- { \
- "id": 6, \
- "category_name": "Fat" \
- }, \
- { \
- "id": 7, \
- "category_name": "Treat" \
- } \
-] \
+```
+[ 
+ { 
+ "id": 1, 
+ "category_name": "Fruit" 
+ }, 
+ { 
+ "id": 2, 
+ "category_name": "Vegetable" 
+ }, 
+ { 
+ "id": 3, 
+ "category_name": "Grain" 
+ }, 
+ { 
+ "id": 4, 
+ "category_name": "Meat" 
+ }, 
+ { 
+ "id": 5, 
+ "category_name": "Dairy" 
+ }, 
+ { 
+ "id": 6, 
+ "category_name": "Fat" 
+ }, 
+ { 
+ "id": 7, 
+ "category_name": "Treat" 
+ } 
+] 
+```
 
 - A `POST` request to the /api/parents/:id/food/logs endpoint will `create` a new food log entry for specified parent account.
 
 The API expects to receive information as in the following example otherwise will fail with a 400 error:
-
-{ \
- "food_item": "apple", \
- "food_category_id": "1", \
- "parent_id": 1 \
-} \
+```
+{ 
+ "food_item": "apple", 
+ "food_category_id": "1", 
+ "parent_id": 1 
+} 
+```
 
 - A `GET` request to the /api/parents/:id/food/logs endpoint `retrieves` a list of food logs for specified parent.
 
 It will return information as shown below.
 
 Example:
-
-[ \
+```
+[ 
  {
-"food_item": "apple", \
- "category_name": "Fruit" \
- } \
-] \
+"food_item": "apple", 
+ "category_name": "Fruit" 
+ } 
+] 
+```
 
 - A `PUT` request to the /api/food/logs/:id endpoint will `update` a food log by specified ID.
 
